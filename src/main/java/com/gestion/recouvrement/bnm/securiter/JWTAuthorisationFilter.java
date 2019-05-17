@@ -33,7 +33,7 @@ public class JWTAuthorisationFilter extends OncePerRequestFilter {
 		//liste des entete que l'on peut exposerautrement dit authorisation du client a envoyer des entetes
 		response.addHeader("Access-Control-Expose-Headers","Access-Control-Allow-Origin,"
 				+ "Access-Control-Allow-Credentials,Authorization");
-		response.addHeader("Access-Control-Allow-Methods","GET,PUT,POST,DELETE,PATCH");
+		response.addHeader("Access-Control-Allow-Methods","GET,PUT,POST,DELETE,PATCH,OPTIONS,HEAD");
 		
 		//
 		
