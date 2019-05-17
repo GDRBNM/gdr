@@ -25,10 +25,16 @@ public class NotificationDeMiseEnDemeureRestController {
             (@RequestBody NotificationDeMiseEnDemeure MED,
              @RequestParam("idClient") Long idClient,
              @RequestParam("idHuissier") Long idHuissier,
+<<<<<<< HEAD
              @RequestParam("type") String type,
             @RequestParam("file") MultipartFile file) throws Exception{
         Huissier huissier = new Huissier();
         Document document=new Document();
+=======
+             @RequestParam("type") String type
+            ) throws Exception{
+        Huissier huissier = new Huissier();
+>>>>>>> samba
         if (type.equals("Particulier")) {
             Client a = new Particulier();
             a.setId(idClient);
@@ -37,18 +43,42 @@ public class NotificationDeMiseEnDemeureRestController {
             MED.setDateNotification(new Date());
             MED.setHuissier(huissier);
             NotificationDeMiseEnDemeure notificationDeMiseEnDemeure=notificationDeMiseEnDemeureRepository.save(MED);
+<<<<<<< HEAD
+=======
+            /*
+>>>>>>> samba
             //enregistrement du document
             Files.write(Paths.get(System.getProperty("user.home")+"/IdeaProjects/GDR-pdf/pdf/"+file.getOriginalFilename()),file.getBytes());
             //enregistrement de l'id de la notification de la mise en demeure
             document.setNotificationDeMiseEnDemeure(notificationDeMiseEnDemeure);
             document.setNomDocument(file.getOriginalFilename().toString());
             documentRepository.save(document);
+<<<<<<< HEAD
             System.out.println(documentRepository.save(document));
+=======
+            */
+>>>>>>> samba
             return notificationDeMiseEnDemeureRepository.save(MED);
         }
 return null;
     }
 
+<<<<<<< HEAD
+=======
+    @PostMapping(value = "/uploadPdf/{id}")
+    public Document uploadPhoto(MultipartFile file,@PathVariable Long id)throws Exception{
+        Document document=new Document();
+        NotificationDeMiseEnDemeure notificationDeMiseEnDemeure=new NotificationDeMiseEnDemeure();
+        //enregistrement du document
+        Files.write(Paths.get(System.getProperty("user.home")+"/IdeaProjects/GDR-pdf/pdf/"+file.getOriginalFilename()),file.getBytes());
+        //enregistrement de l'id de la notification de la mise en demeure
+        notificationDeMiseEnDemeure.setId(id);
+        document.setNotificationDeMiseEnDemeure(notificationDeMiseEnDemeure);
+        document.setNomDocument(file.getOriginalFilename().toString());
+        return documentRepository.save(document);
+
+    }
+>>>>>>> samba
 
 /*
     @Autowired
