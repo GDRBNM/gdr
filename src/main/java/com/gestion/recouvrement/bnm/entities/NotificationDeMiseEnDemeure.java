@@ -14,10 +14,10 @@ public class NotificationDeMiseEnDemeure {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     private Date dateNotification;
     private double soldeNotification;
-    private int statusNotification;
+    private boolean statusNotification;
     private String decisionNotification;
     private double soldeInitiale;
 
@@ -33,12 +33,9 @@ private Long numeroCompte;
 
 @OneToMany(mappedBy = "notificationDeMiseEnDemeure")
 private Collection<Document> documents=new ArrayList<>();
-
     @OneToMany(mappedBy = "notificationDeMiseEnDemeure")
     private Collection<Assignation> assignations=new ArrayList<>();
-
-
-    public NotificationDeMiseEnDemeure(Date dateNotification, double soldeNotification, int statusNotification, String decisionNotification, double soldeInitiale, Date dateOctroie,Long numeroCompte) {
+    public NotificationDeMiseEnDemeure(Date dateNotification, double soldeNotification, boolean statusNotification, String decisionNotification, double soldeInitiale, Date dateOctroie,Long numeroCompte) {
         this.dateNotification = dateNotification;
         this.soldeNotification = soldeNotification;
         this.statusNotification = statusNotification;

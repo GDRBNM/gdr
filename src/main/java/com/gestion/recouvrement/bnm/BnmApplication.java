@@ -3,6 +3,7 @@ package com.gestion.recouvrement.bnm;
 import com.gestion.recouvrement.bnm.dao.*;
 import com.gestion.recouvrement.bnm.entities.*;
 import com.gestion.recouvrement.bnm.service.AccountService;
+import com.gestion.recouvrement.bnm.thread.MEDdateThreadCounter;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -45,6 +46,8 @@ public class BnmApplication extends RepositoryRestConfigurerAdapter implements C
     @Autowired
     RepositoryRestConfiguration repositoryRestConfiguration;
     int  z=0;
+    @Autowired
+    MEDdateThreadCounter meDdateThreadCounter;
     public static void main(String[] args) {
         SpringApplication.run(BnmApplication.class, args);
     }
@@ -61,6 +64,8 @@ repositoryRestConfiguration.exposeIdsFor(Particulier.class);
         repositoryRestConfiguration.exposeIdsFor(Association.class);
         repositoryRestConfiguration.exposeIdsFor(Entreprise.class);
         repositoryRestConfiguration.exposeIdsFor(PartiPolitique.class,Huissier.class);
+        repositoryRestConfiguration.exposeIdsFor(NotificationDeMiseEnDemeure.class);
+
         /*
          * Ajout d'un Particulier
          *
@@ -186,7 +191,7 @@ repositoryRestConfiguration.exposeIdsFor(Particulier.class);
 
             NotificationDeMiseEnDemeure notificationDeMiseEnDemeure=
                     new NotificationDeMiseEnDemeure
-                            (new Date(), 52258.3, rnd.nextInt(), decsionNotifiction[rnd1.nextInt(2)+1],5878.0,new Date(),Long.parseLong(String.valueOf(rnd.nextInt())) );
+                            (new Date(), 52258.3, rnd.nextBoolean(), "",5878.0,new Date(),Long.parseLong(String.valueOf(rnd.nextInt())) );
 
             //id du client Concerner par la mise en demeure
             notificationDeMiseEnDemeure.setClient(particulier);
@@ -228,6 +233,21 @@ repositoryRestConfiguration.exposeIdsFor(Particulier.class);
        // accountService.addRoleToUser("admin", "RESPONSABLE_R");
 
 
+
+        /*
+        *  Debut  Thread notification de mise ne demeure
+        *
+        */
+
+
+        meDdateThreadCounter.start();
+
+
+        /*
+        *
+        * fin Thread notification de mise ne demeure
+        *
+        * */
     }
 
     @Bean
